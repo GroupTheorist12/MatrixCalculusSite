@@ -1,0 +1,93 @@
+            public class UnitVector : List&lt;int&gt;
+            {
+                
+                public string Name{get;} 
+                private string m_LatexName = string.Empty;
+                public string LatexName{get {return m_LatexName;}} 
+                
+                public int Order{get;}
+                public RowColumn IsRowOrColumn { get; set; }
+        
+                private void Init()
+                {
+                    string val = this.Name.Replace("e", string.Empty);
+        
+                    int iVal = 0;
+        
+                    if(!int.TryParse(val, out iVal))
+                    {
+                        throw new Exception("Invalid basis vector name");
+                    }
+        
+                    if(iVal > this.Order)
+                    {
+                        throw new Exception("Invalid basis vector dimension");
+        
+                    }
+        
+                    m_LatexName = "e_{" + iVal.ToString() + "}";
+                    for(int i = 0; i &lt; this.Order; i++)
+                    {
+                        this.Add(0);
+                    }
+        
+                    this[iVal - 1] = 1; 
+        
+                }
+                public UnitVector(string Name, int Order)
+                {
+                    this.Name = Name;
+                    this.Order = Order;
+                    this.IsRowOrColumn = RowColumn.Column;
+                    Init();
+        
+                }
+        
+                public UnitVector(string Name, int Order, RowColumn rc)
+                {
+                    this.Name = Name;
+                    this.Order = Order;
+                    this.IsRowOrColumn = rc;
+                    Init();
+        
+                }
+        
+                public string ToLatex()
+                {
+                    string ret = string.Empty;
+        
+                    string fill =
+                    "\\begin{bmatrix}" +
+                    "FILL_ME_UP_SIR" +
+                    "\\end{bmatrix}";
+        
+        
+                    string vType = (this.IsRowOrColumn == RowColumn.Column) ? "\\\\" : "&&\\!";
+                    StringBuilder sb = new StringBuilder();
+                    int i = 0;
+                    for (i = 0; i &lt; this.Count - 1; i++)
+                    {
+                        sb.AppendFormat("{0}{1}", this[i], vType);
+                    }
+        
+        
+                    sb.AppendFormat("{0}", this[i]);
+        
+                    return fill.Replace("FILL_ME_UP_SIR", sb.ToString());
+                }
+        
+                public string ToLatex(string TheType)
+                {
+                    string ret = this.ToLatex();
+                    StringBuilder sb = new StringBuilder();
+        
+                    switch(TheType)
+                    {
+                        case "F":
+                            ret = this.LatexName + " = " + this.ToLatex();
+                            break;
+                    }
+                    return ret;
+                }
+        
+            }          
