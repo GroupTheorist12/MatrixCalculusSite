@@ -23,11 +23,14 @@
 <script type='text/x-mathjax-config'>
   MathJax.Hub.Register.StartupHook('End', function()
   {
-    var x = document.getElementById('pLatex');
-    x.style.display = 'block';
+    $(".dummy").css("display", "block");
   });
   </script>
 <style>
+  .dummy
+  {
+
+  }
 code, samp, kbd {
 	font-family: "Courier New", Courier, monospace, sans-serif;
 	text-align: left;
@@ -117,7 +120,7 @@ pre {
  <p>
    The definition of <b>Unit vectors</b> of order n are
  </p>
- <p id='pLatex' style='height: 300px; width: 300px;display:none'>
+ <p id='pLatex' class="dummy" style='height: 300px; width: 300px;display:none'>
   \begin{equation}
   \mathbf{e_{1}}\ = 
   \begin{bmatrix}
@@ -146,9 +149,10 @@ pre {
   \end{equation}
               
         </p>
-        <p>
-          The following C# code implments the Unit Vector class
-        </p>
+        <p>  
+        The following C# class implements the Unit Vector class
+      </p>
+      <h5>UnitVector C# Class</h5>
         <pre>
           <code>
             public class UnitVector : List&lt;int&gt;
@@ -246,6 +250,91 @@ pre {
             }          
           </code>            
         </pre>
+        <p>
+          The class inherits from List&lt;int&gt;.  
+          By passing a name for the unit vector in the constructor the proper unit vector is created. 
+          We can then output Latex using the ToLatex method as show below.
+        </p>
+        <h5>Output of UnitVector.ToLatex</h5>
+        <pre>
+          UnitVector uv = new UnitVector("e1", 3); //Order three e1 unit vector
+          HtmlOutputMethods.WriteLatexToHtmlAndLaunch(uv.ToLatex("F"), "Test_UnitVector_UnitVector.html"); //Use mathjax to typset the Latex in default browser
+        </pre>
+        <p>
+          And the output is displayed below:
+        </p>
+        <p id='pLatex2'  class="dummy" style='height: 300px; width: 300px;display:none'>
+          \begin{equation}
+          e_{1} = \begin{bmatrix}1\\0\\0\end{bmatrix}
+          \end{equation}
+        </p>
+<p>
+  All of the unit vectors for Order n form a vector space. The following C# class implments this vector space. It inherits from List&lt;UnitVector&gt;.
+</p>
+<h5>UnitVectorSpace C# Class</h5>
+<pre>
+  <code>
+    public class UnitVectorSpace : List&lt;UnitVector&gt;
+    {
+        public int Order{get;}
+        private Hashtable htVectors = new Hashtable();
+        public UnitVectorSpace(int Order)
+        {
+           this.Order = Order;
+
+           for(int i = 0; i &lt; this.Order; i++)
+           {
+               string e = "e" + (i + 1).ToString();
+               UnitVector uv = new UnitVector(e, this.Order);
+               this.Add(uv);
+               htVectors[e] = uv;
+           }
+
+        }
+
+        public UnitVector this[string e]
+        {
+            get
+            {
+                return (UnitVector)htVectors[e];
+            }
+        }
+
+        public string ToLatex()
+        {
+            string ret = string.Empty;
+            StringBuilder sb = new StringBuilder();
+           for(int i = 0; i &lt; this.Order; i++)
+           {
+               UnitVector uv = this[i];
+                sb.AppendFormat(" {0} ", uv.ToLatex("F"));
+           }
+            ret = sb.ToString();
+
+            return ret;
+        }
+    }
+
+  </code>
+</pre>
+<p>
+  By passing the order of the vector space in the constructor the proper unit vector space is created. 
+  We can then output Latex using the ToLatex method as show below.
+</p>
+<h5>Output of UnitVectorSpace.ToLatex</h5>
+<pre>
+  UnitVectorSpace uvs = new UnitVectorSpace(3); //Create a vector space of order 3
+  HtmlOutputMethods.WriteLatexToHtmlAndLaunch(uvs.ToLatex(), "Test_UnitVectorSpace_UnitVectorSpace.html"); //Use mathjax to typset the Latex in default browser
+</pre>
+<p>
+  And the output is displayed below:
+</p>
+<p id='pLatex4'  class="dummy" style='height: 300px; width: 300px;display:none'>
+  \begin{equation}
+  e_{1} = \begin{bmatrix}1\\0\\0\end{bmatrix}  e_{2} = \begin{bmatrix}0\\1\\0\end{bmatrix}  e_{3} = \begin{bmatrix}0\\0\\1\end{bmatrix} 
+  \end{equation}
+</p>
+
       </div>
     </div>
     <!-- /#page-content-wrapper -->
