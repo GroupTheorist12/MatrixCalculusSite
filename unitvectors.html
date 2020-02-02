@@ -70,8 +70,19 @@ pre {
     <div class="bg-light border-right" id="sidebar-wrapper">
       <div class="sidebar-heading">Matrix Calculus </div>
       <div class="list-group list-group-flush">
-        <a href="introduction.html" class="list-group-item list-group-item-action bg-light">Introduction</a>
+        <a href="introduction.html" class="list-group-item list-group-item-action bg-light">Introduction
+        </a>
         <a href="unitvectors.html" class="list-group-item list-group-item-action bg-dark text-light">Unit Vectors</a>
+          <ul class="nav navbar-nav navbar-left">
+            <li><a href="#bmUnitVectorClass" class="list-group-item list-group-item-action bg-white text-info">UnitVector Class</a>
+            </li>
+            <li><a href="#bmUnitVectorToLatex" class="list-group-item list-group-item-action bg-white text-info">UnitVector ToLatex Method</a>
+            </li>
+            <li><a href="#bmUnitVectorSpaceClass" class="list-group-item list-group-item-action bg-white text-info">UnitVectorSpace Class</a>
+            </li>
+            <li><a href="#bmUnitVectorSpaceToLatex" class="list-group-item list-group-item-action bg-white text-info">UnitVectorSpace ToLatex</a>
+            </li>
+          </ul>
         <a href="elementarymatrices.html" class="list-group-item list-group-item-action bg-light">Elementary Matrices</a>
         <a href="kroneckerproduct_v.html" class="list-group-item list-group-item-action bg-light">Kronecker Product of Vectors</a>
         <a href="kroneckerproduct_m.html" class="list-group-item list-group-item-action bg-light">Kronecker Product of Matrices</a>
@@ -120,7 +131,7 @@ pre {
  <p>
    The definition of <b>Unit vectors</b> of order n are
  </p>
- <p id='pLatex' class="dummy" style='height: 300px; width: 300px;display:none'>
+ <p id='pLatex' class="dummy" style='height: 150px; width: 300px;display:none'>
   \begin{equation}
   \mathbf{e_{1}}\ = 
   \begin{bmatrix}
@@ -152,7 +163,7 @@ pre {
         <p>  
         The following C# class implements the Unit Vector class
       </p>
-      <h5>UnitVector C# Class</h5>
+      <h5 id="bmUnitVectorClass">UnitVector C# Class</h5>
         <pre>
           <code>
             public class UnitVector : List&lt;int&gt;
@@ -255,7 +266,7 @@ pre {
           By passing a name for the unit vector in the constructor the proper unit vector is created. 
           We can then output Latex using the ToLatex method as show below.
         </p>
-        <h5>Output of UnitVector.ToLatex</h5>
+        <h5 id="bmUnitVectorToLatex">Output of UnitVector.ToLatex</h5>
         <pre>
           UnitVector uv = new UnitVector("e1", 3); //Order three e1 unit vector
           HtmlOutputMethods.WriteLatexToHtmlAndLaunch(uv.ToLatex("F"), "Test_UnitVector_UnitVector.html"); //Use mathjax to typset the Latex in default browser
@@ -263,7 +274,7 @@ pre {
         <p>
           And the output is displayed below:
         </p>
-        <p id='pLatex2'  class="dummy" style='height: 300px; width: 300px;display:none'>
+        <p id='pLatex2'  class="dummy" style='height: 150px; width: 300px;display:none'>
           \begin{equation}
           e_{1} = \begin{bmatrix}1\\0\\0\end{bmatrix}
           \end{equation}
@@ -271,7 +282,7 @@ pre {
 <p>
   All of the unit vectors for Order n form a vector space. The following C# class implments this vector space. It inherits from List&lt;UnitVector&gt;.
 </p>
-<h5>UnitVectorSpace C# Class</h5>
+<h5 id="bmUnitVectorSpaceClass">UnitVectorSpace C# Class</h5>
 <pre>
   <code>
     public class UnitVectorSpace : List&lt;UnitVector&gt;
@@ -321,7 +332,7 @@ pre {
   By passing the order of the vector space in the constructor the proper unit vector space is created. 
   We can then output Latex using the ToLatex method as show below.
 </p>
-<h5>Output of UnitVectorSpace.ToLatex</h5>
+<h5 id="bmUnitVectorSpaceToLatex">Output of UnitVectorSpace.ToLatex</h5>
 <pre>
   UnitVectorSpace uvs = new UnitVectorSpace(3); //Create a vector space of order 3
   HtmlOutputMethods.WriteLatexToHtmlAndLaunch(uvs.ToLatex(), "Test_UnitVectorSpace_UnitVectorSpace.html"); //Use mathjax to typset the Latex in default browser
@@ -329,7 +340,7 @@ pre {
 <p>
   And the output is displayed below:
 </p>
-<p id='pLatex4'  class="dummy" style='height: 300px; width: 300px;display:none'>
+<p id='pLatex4'  class="dummy" style='height: 150px; width: 300px;display:none'>
   \begin{equation}
   e_{1} = \begin{bmatrix}1\\0\\0\end{bmatrix}  e_{2} = \begin{bmatrix}0\\1\\0\end{bmatrix}  e_{3} = \begin{bmatrix}0\\0\\1\end{bmatrix} 
   \end{equation}
