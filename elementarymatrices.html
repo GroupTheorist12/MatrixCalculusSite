@@ -19,6 +19,47 @@
   src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML'>
 </script>
 
+<script type='text/x-mathjax-config'>
+  MathJax.Hub.Register.StartupHook('End', function()
+  {
+    $(".dummy").css("display", "block");
+  });
+  </script>
+<style>
+  .dummy
+  {
+
+  }
+code, samp, kbd {
+	font-family: "Courier New", Courier, monospace, sans-serif;
+	text-align: left;
+	color: #555;
+	}
+pre code {
+	line-height: 1.6em;
+	font-size: 11px;
+	}
+pre {
+	padding: 0.1em 0.5em 0.3em 0.7em;
+	border-left: 11px solid #ccc;
+	margin: 1.7em 0 1.7em 0.3em;
+	overflow: auto;
+	width: 93%;
+	}
+/* target IE7 and IE6 */
+*:first-child+html pre {
+	padding-bottom: 2em;
+	overflow-y: hidden;
+	overflow: visible;
+	overflow-x: auto; 
+	}
+* html pre { 
+	padding-bottom: 2em;
+	overflow: visible;
+	overflow-x: auto;
+	}
+</style>
+
 </head>
 
 <body>
@@ -54,6 +95,9 @@
             <li class="nav-item active">
               <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Unit Vectors</a>
+            </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 API
@@ -72,10 +116,173 @@
       <div class="container-fluid">
         <h1 class="mt-4">Elementary Matrices</h1>
       
-<!--         <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will change.</p>
-        <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>. The top navbar is optional, and just for demonstration. Just create an element with the <code>#menu-toggle</code> ID which will toggle the menu when clicked.</p>
- -->      
-      </div>
+  The <b>elementary matrix</b> 
+  <div id="pLatex" class="dummy" style='height: 25px; width: 50px;display:none'>
+  $$E_{ij}$$ 
+</div>
+of order (m x n) has a 1 in the (i,j)th position and all others are zero.
+<p>
+  An example for a 4 x 4 elementary matrix
+</p>
+<p id='pLatex' class="dummy" style='height: 150px; width: 300px;display:none'>
+  \begin{equation}      
+  E_{11} = \begin{bmatrix}1 &0 &0 &0\\0 &0 &0 &0\\0 &0 &0 &0\\0 &0 &0 &0\\ \end{bmatrix}
+\end{equation}      
+</p>
+<p>  
+  The following C# class implements the Elementary Matrix class
+</p>
+<h5 id="bmElementaryMatrixClass">ElementaryMatrix C# Class</h5>
+  <pre>
+    <code>
+      public class ElementaryMatrix
+      {
+          private int[,] InternalRep = null;
+          public string FullRep{get;set;}
+  
+          public string Name{get;}
+          private string m_LatexName;
+          public string LatexName{get{return m_LatexName;}}
+  
+          public int Rows = 0;
+          public int Columns = 0;
+          private List&lt;double&gt; Vector = null;
+          private void Zero()
+          {
+              for (int i = 0; i &lt; Rows; i++)
+              {
+                  for (int j = 0; j &lt; Columns; j++)
+                  {
+                      InternalRep[i, j] = 0;
+                  }
+              }
+  
+          }
+  
+          private void Init()
+          {
+              if(this.Name[0] != 'E')
+              {
+                  throw new Exception("Name of ElementaryMatrix must begin with capitol E followed by two numer indices");
+              }
+  
+              int oI1 = 0;
+              int oI2 = 0;
+  
+              try
+              {
+                  if(!int.TryParse(this.Name[1].ToString(), out oI1))
+                  {
+                      throw new Exception("Name of ElementaryMatrix must begin with capitol E followed by two numer indices, index 1 bad.");
+  
+                  }
+  
+                  if(!int.TryParse(this.Name[2].ToString(), out oI2))
+                  {
+                      throw new Exception("Name of ElementaryMatrix must begin with capitol E followed by two numer indices, index 2 bad");
+  
+                  }
+  
+                  this[oI1 - 1, oI2 - 1] = 1;
+                  m_LatexName = @"E_{" + (oI1).ToString() + (oI2).ToString() + "}";
+              }
+              catch(Exception)
+              {
+                  throw new Exception("Name of ElementaryMatrix must begin with capitol E followed by two numer indices. Could not parse indices.");
+              }
+  
+          }
+          public ElementaryMatrix(int rows, int columns, string Name)
+          {
+  
+              this.Rows = rows;
+              this.Columns = columns;
+              InternalRep = new int[this.Rows, this.Columns];
+              this.Name = Name;
+              this.FullRep = string.Empty;
+              
+              Zero();
+              Init();
+          }
+          
+          public int this[int r, int c]
+          {
+              get
+              {
+                  if (!(r &lt; Rows && c &lt; Columns))
+                  {
+                      throw new Exception("rows and columns out of range of square matrix");
+                  }
+                  return (InternalRep[r, c]);
+              }
+              set 
+              {   
+                  Zero();
+  
+                  if(value != 1)
+                  {
+                      throw new Exception("Value must be one");
+                  }
+                  InternalRep[r, c] = value;
+              }
+          }
+  
+          public string ToLatex()
+          {
+              StringBuilder sb = new StringBuilder();
+              sb.Append("\\begin{bmatrix}");
+              for (int i = 0; i &lt; Rows; i++)
+              {
+                  for (int j = 0; j &lt; Columns; j++)
+                  {
+                      if (j &lt; Columns - 1)
+                      {
+                          sb.AppendFormat("{0} &", InternalRep[i, j]);
+                      }
+                      else
+                      {
+                          sb.AppendFormat("{0}", InternalRep[i, j]);
+                      }
+  
+                  }
+                  sb.Append("\\\\");
+              }
+  
+              sb.Append(" \\end{bmatrix}");
+              return sb.ToString();
+  
+          }
+  
+          public string ToLatex(string Rep)
+          {
+              string ret = ToLatex();
+  
+              switch(Rep)
+              {
+                  case "F":
+                      if(FullRep != string.Empty) //Set outside current object
+                      {
+                          ret = FullRep;
+                      }
+                      else
+                      {
+                          ret = LatexName + " = " + ToLatex();
+                      }
+                      break;
+                  default:
+                      break;    
+              }
+  
+              return ret;
+          }
+  
+  
+      }
+    </code>
+  </pre>
+
+
+</div>
     </div>
     <!-- /#page-content-wrapper -->
 

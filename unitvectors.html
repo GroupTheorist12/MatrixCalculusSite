@@ -159,6 +159,7 @@ pre {
   \vdots \\
   0
   \end{bmatrix}
+  \ldots
   \end{equation}
               
         </p>
@@ -334,7 +335,7 @@ pre {
   By passing the order of the vector space in the constructor the proper unit vector space is created. 
   We can then output Latex using the ToLatex method as show below.
 </p>
-<h5 id="bmUnitVectorSpaceToLatex">Output of UnitVectorSpace.ToLatex</h5>
+<h5 id="bmUnitVectorSpaceToLatex">Output of UnitVectorSpace ToLatex Method</h5>
 <pre>
   UnitVectorSpace uvs = new UnitVectorSpace(3); //Create a vector space of order 3
   HtmlOutputMethods.WriteLatexToHtmlAndLaunch(uvs.ToLatex(), "Test_UnitVectorSpace_UnitVectorSpace.html"); //Use mathjax to typset the Latex in default browser
