@@ -73,6 +73,12 @@ pre {
         <a href="introduction.html" class="list-group-item list-group-item-action bg-light">Introduction</a>
         <a href="unitvectors.html" class="list-group-item list-group-item-action bg-light">Unit Vectors</a>
         <a href="elementarymatrices.html" class="list-group-item list-group-item-action bg-dark text-light">Elementary Matrices</a>
+        <ul class="nav navbar-nav navbar-left">
+          <li><a href="#bmElementaryMatrixClass" class="list-group-item list-group-item-action bg-white text-info">ElementaryMatrix Class</a>
+          </li>
+          <li><a href="#bmElementaryMatrixToLatex" class="list-group-item list-group-item-action bg-white text-info">ElementaryMatrix ToLatex Method</a>
+          </li>
+        </ul>
         <a href="kroneckerproduct_v.html" class="list-group-item list-group-item-action bg-light">Kronecker Product of Vectors</a>
         <a href="kroneckerproduct_m.html" class="list-group-item list-group-item-action bg-light">Kronecker Product of Matrices</a>
         <a href="kroneckerdelta.html" class="list-group-item list-group-item-action bg-light">Kronecker Delta</a>
@@ -281,6 +287,89 @@ of order (m x n) has a 1 in the (i,j)th position and all others are zero.
     </code>
   </pre>
 
+  <p>
+    By passing a name for the elementary matrix plus the number of rows and column in the constructor the proper elementary matrix is created. 
+    We can then output Latex using the ToLatex method as show below.
+  </p>
+  <h5 id="bmElementaryMatrixToLatex">Output of ElementaryMatrix ToLatex</h5>
+  <pre>
+    ElementaryMatrix em = new ElementaryMatrix(4, 4, "E11"); //Create elementary matrix E11
+    HtmlOutputMethods.WriteLatexEqToHtmlAndLaunch(em.ToLatex("F"), "Test_ElementaryMatrix_ElementaryMatrix.html");
+</pre>
+  <p>
+    And the output is displayed below:
+  </p>
+  <p id='pLatex2'  class="dummy" style='height: 150px; width: 300px;display:none'>
+    \begin{equation}      
+    E_{11} = \begin{bmatrix}1 &0 &0 &0\\0 &0 &0 &0\\0 &0 &0 &0\\0 &0 &0 &0\\ \end{bmatrix}
+\end{equation}      
+</p>
+<p>
+  Unit vectors and elementary matrices have the following relationship
+</p>
+<p id='pLatex3'  class="dummy" style='height: 150px; width: 300px;display:none'>
+  \begin{equation}      
+  E_{ij} = e_ie'_i
+\end{equation}      
+</p>
+<p>
+  Where e' is the transpose of the unit vector (row vector).
+  An example of order 3
+</p>
+<p id='pLatex4'  class="dummy" style='height: 150px; width: 300px;display:none'>
+  \begin{equation}      
+  e'_1 = \begin{bmatrix}1&0&0\end{bmatrix}
+\end{equation}      
+</p>
+<p>
+ The following is an example of the vector product for order 3
+</p>
+<p id='pLatex5'  class="dummy" style='height: 150px; width: 300px;display:none'>
+  \begin{equation}      
+  E_{21} = \begin{bmatrix}0\\1\\0\end{bmatrix}\begin{bmatrix}1&0&0\end{bmatrix} = \begin{bmatrix}0 &0 &0\\1 &0 &0\\0 &0 &0\\ \end{bmatrix}
+\end{equation}      
+</p>
+<p>
+  We will create the unit vector product by using the operator overloading of * as shown below.
+</p>
+<h5 id="bmUnitVectorProduct">UnitVector Product using operator overloading</h5>
+<pre>
+  public static ElementaryMatrix operator*(UnitVector e1, UnitVector e2)
+  {
+      ElementaryMatrix em = null;
+      RowColumn rc = e2.IsRowOrColumn;
+
+      e2.IsRowOrColumn = RowColumn.Row; //transpose
+
+      string emName = "E" + e1.Name[1].ToString() + e2.Name[1].ToString(); 
+      em = new ElementaryMatrix(e1.Order, e2.Order, emName);
+      em.FullRep = em.LatexName + " = " + e1.ToLatex() + e2.ToLatex() + " = " + em.ToLatex();
+
+      e2.IsRowOrColumn = rc; //set back to what it was
+      return em;
+  }
+
+</pre>
+<p>
+ The following code tests operator overloading of the UnitVector * operator.
+</p>
+<pre>
+  <code>
+    UnitVectorSpace uvs = new UnitVectorSpace(4); //Order four Unit Vector Space
+    UnitVector e2 = uvs["e2"]; // order 4 e2 unit vector
+    UnitVector e1 = uvs["e1"]; //order 4 e1 unit operator
+    ElementaryMatrix em = e2 * e1; //product of Unit Vectors
+    HtmlOutputMethods.WriteLatexEqToHtmlAndLaunch(em.ToLatex("F"), "Test_UnitVectorProductTo_ElementaryMatrix.html"); //display Latex via mathjax
+  </code>
+</pre>
+<p>
+  And the output is displayed below:
+</p>
+<p id='pLatex6'  class="dummy" style='height: 150px; width: 300px;display:none'>
+  \begin{equation}      
+  E_{21} = \begin{bmatrix}0\\1\\0\\0\end{bmatrix}\begin{bmatrix}1&0&0&0\end{bmatrix} = \begin{bmatrix}0 &0 &0 &0\\1 &0 &0 &0\\0 &0 &0 &0\\0 &0 &0 &0\\ \end{bmatrix}
+\end{equation}      
+</p>
 
 </div>
     </div>
