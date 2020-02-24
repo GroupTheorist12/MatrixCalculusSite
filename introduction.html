@@ -10,7 +10,7 @@
   <meta name="author" content="">
   <link rel="icon" href="https://getbootstrap.com/docs/4.1/assets/img/favicons/favicon.ico">
 
-  <title>Dashboard Template for Bootstrap</title>
+  <title>Introduction</title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/dashboard/">
 
@@ -162,6 +162,18 @@ MathJax.Hub.Register.StartupHook('End', function()
                 Elementary Matrices
               </a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="matrix_decomposition.html">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="feather feather-file">
+                  <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                  <polyline points="13 2 13 9 20 9"></polyline>
+                </svg>
+                Matrix Decomposition
+              </a>
+            </li>
+
           </ul>
 
         </div>
@@ -189,8 +201,63 @@ MathJax.Hub.Register.StartupHook('End', function()
         </p>
 
         <p>
-          A test bed was created to spawn your default web browser to display content.
+          A test bed was created to ionvoke your test methods to display test data content as show below. 
         </p>
+        <h5 id="bmTestBed">Test bed code</h5>
+        <pre>
+          <code>
+            // Arguments are passed to console app in VSCode in the Launch.json file's section, args 
+            //"args": ["Symbols_Tokens"]
+            //Main method in Program.cs spawns web browser
+            MethodRunner.RunIt(args[0]);
+          </code>
+        </pre>
+
+        <h5 id="bmMethodRunner">MethodRunner class code</h5>
+        <p>
+          The MethodRunner class uses C# refelection to create a hash table of all static methods with names that start with "Test_"
+        </p>
+        <p>
+          The static method RunIt invokes the method
+        </p>
+        <pre>
+          <code>
+            public static int RunIt(string hashEntry)
+            {
+                MethodInfo mi = (MethodInfo)htTestFuncs[hashEntry];
+                return (int)mi.Invoke(null, null);
+            }
+    
+            static MethodRunner()
+            {
+    
+                // get all public static methods of MethodRunner type
+                MethodInfo[] methodInfos = typeof(MethodRunner).GetMethods(BindingFlags.Public |
+                                                                    BindingFlags.Static);
+                // sort methods by name
+                Array.Sort(methodInfos,
+                        delegate (MethodInfo methodInfo1, MethodInfo methodInfo2)
+                        { return methodInfo1.Name.CompareTo(methodInfo2.Name); });
+    
+                // write method names to hash
+                foreach (MethodInfo methodInfo in methodInfos)
+                {
+                    if (methodInfo.Name.IndexOf("Test_") == -1)
+                    {
+                        continue;
+                    }
+    
+                    string miKey = methodInfo.Name.Replace("Test_", "");
+                    //Console.WriteLine(miKey);
+    
+                    htTestFuncs[miKey] = methodInfo;
+                }
+    
+    
+            }
+              </code>
+        </pre>
+
 
       </main>
     </div>
