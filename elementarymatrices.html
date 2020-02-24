@@ -102,7 +102,10 @@ pre {
               <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Unit Vectors</a>
+              <a class="nav-link" href="unitvectors.html">Unit Vectors</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="elementarymatrices.html">Elementary Matrices</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -334,6 +337,7 @@ of order (m x n) has a 1 in the (i,j)th position and all others are zero.
 </p>
 <h5 id="bmUnitVectorProduct">UnitVector Product using operator overloading</h5>
 <pre>
+   <code>
   public static ElementaryMatrix operator*(UnitVector e1, UnitVector e2)
   {
       ElementaryMatrix em = null;
@@ -348,7 +352,7 @@ of order (m x n) has a 1 in the (i,j)th position and all others are zero.
       e2.IsRowOrColumn = rc; //set back to what it was
       return em;
   }
-
+</code>
 </pre>
 <p>
  The following code tests operator overloading of the UnitVector * operator.
@@ -370,7 +374,18 @@ of order (m x n) has a 1 in the (i,j)th position and all others are zero.
   E_{21} = \begin{bmatrix}0\\1\\0\\0\end{bmatrix}\begin{bmatrix}1&0&0&0\end{bmatrix} = \begin{bmatrix}0 &0 &0 &0\\1 &0 &0 &0\\0 &0 &0 &0\\0 &0 &0 &0\\ \end{bmatrix}
 \end{equation}      
 </p>
-
+<p>
+  The <b>Kronecker Delta</b> is defined as
+</p>
+<p id='pLatex7'  class="dummy" style='height: 150px; width: 300px;display:none'>
+$$
+\delta_{ij} =
+\begin{cases}
+1, &         \text{if } i=j,\\
+0, &         \text{if } i\neq j.
+\end{cases}
+$$
+</p>
 </div>
     </div>
     <!-- /#page-content-wrapper -->
