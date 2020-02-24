@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)https://getbootstrap.com/docs/4.1/examples/dashboard/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="https://getbootstrap.com/docs/4.1/assets/img/favicons/favicon.ico">
+
+    <title>Dashboard Template for Bootstrap</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/dashboard/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="./Dashboard_files/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="./Dashboard_files/dashboard.css" rel="stylesheet">
+  <style type="text/css">/* Chart.js */
+ 
+@-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}
+</style>
+<script type='text/javascript' async
+src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML'>
+</script>
+
+<script type='text/x-mathjax-config'>
+MathJax.Hub.Register.StartupHook('End', function()
+{
+  $(".dummy").css("display", "block");
+});
+</script>
+<style>
+.dummy
+{
+
+}
+code, samp, kbd {
+font-family: "Courier New", Courier, monospace, sans-serif;
+text-align: left;
+color: #555;
+}
+pre code {
+line-height: 1.6em;
+font-size: 11px;
+}
+pre {
+padding: 0.1em 0.5em 0.3em 0.7em;
+border-left: 11px solid #ccc;
+margin: 1.7em 0 1.7em 0.3em;
+overflow: auto;
+width: 93%;
+}
+/* target IE7 and IE6 */
+*:first-child+html pre {
+padding-bottom: 2em;
+overflow-y: hidden;
+overflow: visible;
+overflow-x: auto; 
+}
+* html pre { 
+padding-bottom: 2em;
+overflow: visible;
+overflow-x: auto;
+}
+</style>
+
+</head>
+
+   <body>
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="https://getbootstrap.com/docs/4.1/examples/dashboard/#">Company name</a>
+      <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="https://getbootstrap.com/docs/4.1/examples/dashboard/#">Sign out</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" href="https://getbootstrap.com/docs/4.1/examples/dashboard/#">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                  Dashboard <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://getbootstrap.com/docs/4.1/examples/dashboard/#">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                  Monkey Butt
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://getbootstrap.com/docs/4.1/examples/dashboard/#">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                  Products
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://getbootstrap.com/docs/4.1/examples/dashboard/#">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                  Customers
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://getbootstrap.com/docs/4.1/examples/dashboard/#">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart-2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                  Reports
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://getbootstrap.com/docs/4.1/examples/dashboard/#">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                  Integrations
+                </a>
+              </li>
+            </ul>
+
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span>Saved reports</span>
+              <a class="d-flex align-items-center text-muted" href="https://getbootstrap.com/docs/4.1/examples/dashboard/#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+              </a>
+            </h6>
+            <ul class="nav flex-column mb-2">
+              <li class="nav-item">
+                <a class="nav-link" href="https://getbootstrap.com/docs/4.1/examples/dashboard/#">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                  Current month
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://getbootstrap.com/docs/4.1/examples/dashboard/#">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                  Last quarter
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://getbootstrap.com/docs/4.1/examples/dashboard/#">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                  Social engagement
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://getbootstrap.com/docs/4.1/examples/dashboard/#">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                  Year-end sale
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Dashboard</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-group mr-2">
+                <button class="btn btn-sm btn-outline-secondary">Share</button>
+                <button class="btn btn-sm btn-outline-secondary">Export</button>
+              </div>
+              <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                This week
+              </button>
+            </div>
+          </div>
+
+          <!-- <canvas class="my-4 w-100 chartjs-render-monitor" id="myChart" width="1538" height="649" style="display: block; width: 1538px; height: 649px;"></canvas> -->
+
+          <h2>Section title</h2>
+<!--           <div class="table-responsive">
+            <table class="table table-striped table-sm">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1,001</td>
+                  <td>Lorem</td>
+                  <td>ipsum</td>
+                  <td>dolor</td>
+                  <td>sit</td>
+                </tr>
+                <tr>
+                  <td>1,002</td>
+                  <td>amet</td>
+                  <td>consectetur</td>
+                  <td>adipiscing</td>
+                  <td>elit</td>
+                </tr>
+                <tr>
+                  <td>1,003</td>
+                  <td>Integer</td>
+                  <td>nec</td>
+                  <td>odio</td>
+                  <td>Praesent</td>
+                </tr>
+                <tr>
+                  <td>1,003</td>
+                  <td>libero</td>
+                  <td>Sed</td>
+                  <td>cursus</td>
+                  <td>ante</td>
+                </tr>
+                <tr>
+                  <td>1,004</td>
+                  <td>dapibus</td>
+                  <td>diam</td>
+                  <td>Sed</td>
+                  <td>nisi</td>
+                </tr>
+                <tr>
+                  <td>1,005</td>
+                  <td>Nulla</td>
+                  <td>quis</td>
+                  <td>sem</td>
+                  <td>at</td>
+                </tr>
+                <tr>
+                  <td>1,006</td>
+                  <td>nibh</td>
+                  <td>elementum</td>
+                  <td>imperdiet</td>
+                  <td>Duis</td>
+                </tr>
+                <tr>
+                  <td>1,007</td>
+                  <td>sagittis</td>
+                  <td>ipsum</td>
+                  <td>Praesent</td>
+                  <td>mauris</td>
+                </tr>
+                <tr>
+                  <td>1,008</td>
+                  <td>Fusce</td>
+                  <td>nec</td>
+                  <td>tellus</td>
+                  <td>sed</td>
+                </tr>
+                <tr>
+                  <td>1,009</td>
+                  <td>augue</td>
+                  <td>semper</td>
+                  <td>porta</td>
+                  <td>Mauris</td>
+                </tr>
+                <tr>
+                  <td>1,010</td>
+                  <td>massa</td>
+                  <td>Vestibulum</td>
+                  <td>lacinia</td>
+                  <td>arcu</td>
+                </tr>
+                <tr>
+                  <td>1,011</td>
+                  <td>eget</td>
+                  <td>nulla</td>
+                  <td>Class</td>
+                  <td>aptent</td>
+                </tr>
+                <tr>
+                  <td>1,012</td>
+                  <td>taciti</td>
+                  <td>sociosqu</td>
+                  <td>ad</td>
+                  <td>litora</td>
+                </tr>
+                <tr>
+                  <td>1,013</td>
+                  <td>torquent</td>
+                  <td>per</td>
+                  <td>conubia</td>
+                  <td>nostra</td>
+                </tr>
+                <tr>
+                  <td>1,014</td>
+                  <td>per</td>
+                  <td>inceptos</td>
+                  <td>himenaeos</td>
+                  <td>Curabitur</td>
+                </tr>
+                <tr>
+                  <td>1,015</td>
+                  <td>sodales</td>
+                  <td>ligula</td>
+                  <td>in</td>
+                  <td>libero</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+ --> 
+ <h1 class="mt-4">Unit Vectors</h1>
+      
+ <!--         <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will change.</p>
+         <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>. The top navbar is optional, and just for demonstration. Just create an element with the <code>#menu-toggle</code> ID which will toggle the menu when clicked.</p>
+  --> 
+  <hr/>
+  <p>
+    The definition of <b>Unit vectors</b> of order n are
+  </p>
+  <p id='pLatex' class="dummy" style='height: 150px; width: 300px;display:none'>
+   \begin{equation}
+   \mathbf{e_{1}}\ = 
+   \begin{bmatrix}
+   1 \\ 
+   0 \\ 
+   0 \\
+   \vdots \\
+   0
+   \end{bmatrix}
+   \mathbf{e_{2}}\ = 
+   \begin{bmatrix}
+   0 \\ 
+   1 \\ 
+   0 \\
+   \vdots \\
+   0
+   \end{bmatrix}
+   \mathbf{e_{3}}\ = 
+   \begin{bmatrix}
+   0 \\ 
+   0 \\ 
+   1 \\
+   \vdots \\
+   0
+   \end{bmatrix}
+   \ldots
+   \end{equation}
+               
+         </p>
+         <p>  
+         The following C# class implements the Unit Vector class
+       </p>
+       <h5 id="bmUnitVectorClass">UnitVector C# Class</h5>
+         <pre>
+           <code>
+             public class UnitVector : List&lt;int&gt;
+             {
+                 
+                 public string Name{get;} 
+                 private string m_LatexName = string.Empty;
+                 public string LatexName{get {return m_LatexName;}} 
+                 
+                 public int Order{get;}
+                 public RowColumn IsRowOrColumn { get; set; }
+         
+                 private void Init()
+                 {
+                     string val = this.Name.Replace("e", string.Empty);
+         
+                     int iVal = 0;
+         
+                     if(!int.TryParse(val, out iVal))
+                     {
+                         throw new Exception("Invalid basis vector name");
+                     }
+         
+                     if(iVal > this.Order)
+                     {
+                         throw new Exception("Invalid basis vector dimension");
+         
+                     }
+         
+                     m_LatexName = "e_{" + iVal.ToString() + "}";
+                     for(int i = 0; i &lt; this.Order; i++)
+                     {
+                         this.Add(0);
+                     }
+         
+                     this[iVal - 1] = 1; 
+         
+                 }
+                 public UnitVector(string Name, int Order)
+                 {
+                     this.Name = Name;
+                     this.Order = Order;
+                     this.IsRowOrColumn = RowColumn.Column;
+                     Init();
+         
+                 }
+         
+                 public UnitVector(string Name, int Order, RowColumn rc)
+                 {
+                     this.Name = Name;
+                     this.Order = Order;
+                     this.IsRowOrColumn = rc;
+                     Init();
+         
+                 }
+         
+                 public string ToLatex()
+                 {
+                     string ret = string.Empty;
+         
+                     string fill =
+                     "\\begin{bmatrix}" +
+                     "FILL_ME_UP_SIR" +
+                     "\\end{bmatrix}";
+         
+         
+                     string vType = (this.IsRowOrColumn == RowColumn.Column) ? "\\\\" : "&&\\!";
+                     StringBuilder sb = new StringBuilder();
+                     int i = 0;
+                     for (i = 0; i &lt; this.Count - 1; i++)
+                     {
+                         sb.AppendFormat("{0}{1}", this[i], vType);
+                     }
+         
+         
+                     sb.AppendFormat("{0}", this[i]);
+         
+                     return fill.Replace("FILL_ME_UP_SIR", sb.ToString());
+                 }
+         
+                 public string ToLatex(string TheType)
+                 {
+                     string ret = this.ToLatex();
+                     StringBuilder sb = new StringBuilder();
+         
+                     switch(TheType)
+                     {
+                         case "F":
+                             ret = this.LatexName + " = " + this.ToLatex();
+                             break;
+                     }
+                     return ret;
+                 }
+         
+             }          
+           </code>            
+         </pre>
+         <p>
+           The class inherits from List&lt;int&gt;.  
+           By passing a name for the unit vector in the constructor the proper unit vector is created. 
+           We can then output Latex using the ToLatex method as show below.
+         </p>
+         <h5 id="bmUnitVectorToLatex">Output of UnitVector.ToLatex</h5>
+         <pre>
+           UnitVector uv = new UnitVector("e1", 3); //Order three e1 unit vector
+           HtmlOutputMethods.WriteLatexToHtmlAndLaunch(uv.ToLatex("F"), "Test_UnitVector_UnitVector.html"); //Use mathjax to typset the Latex in default browser
+         </pre>
+         <p>
+           And the output is displayed below:
+         </p>
+         <p id='pLatex2'  class="dummy" style='height: 150px; width: 300px;display:none'>
+           \begin{equation}
+           e_{1} = \begin{bmatrix}1\\0\\0\end{bmatrix}
+           \end{equation}
+         </p>
+ <p>
+   All of the unit vectors for Order n form a vector space. The following C# class implments this vector space. It inherits from List&lt;UnitVector&gt;.
+ </p>
+ <h5 id="bmUnitVectorSpaceClass">UnitVectorSpace C# Class</h5>
+ <pre>
+   <code>
+     public class UnitVectorSpace : List&lt;UnitVector&gt;
+     {
+         public int Order{get;}
+         private Hashtable htVectors = new Hashtable();
+         public UnitVectorSpace(int Order)
+         {
+            this.Order = Order;
+ 
+            for(int i = 0; i &lt; this.Order; i++)
+            {
+                string e = "e" + (i + 1).ToString();
+                UnitVector uv = new UnitVector(e, this.Order);
+                this.Add(uv);
+                htVectors[e] = uv;
+            }
+ 
+         }
+ 
+         public UnitVector this[string e]
+         {
+             get
+             {
+                 return (UnitVector)htVectors[e];
+             }
+         }
+ 
+         public string ToLatex()
+         {
+             string ret = string.Empty;
+             StringBuilder sb = new StringBuilder();
+            for(int i = 0; i &lt; this.Order; i++)
+            {
+                UnitVector uv = this[i];
+                 sb.AppendFormat(" {0} ", uv.ToLatex("F"));
+            }
+             ret = sb.ToString();
+ 
+             return ret;
+         }
+     }
+ 
+   </code>
+ </pre>
+ <p>
+   By passing the order of the vector space in the constructor the proper unit vector space is created. 
+   We can then output Latex using the ToLatex method as show below.
+ </p>
+ <h5 id="bmUnitVectorSpaceToLatex">Output of UnitVectorSpace ToLatex Method</h5>
+ <pre>
+   UnitVectorSpace uvs = new UnitVectorSpace(3); //Create a vector space of order 3
+   HtmlOutputMethods.WriteLatexToHtmlAndLaunch(uvs.ToLatex(), "Test_UnitVectorSpace_UnitVectorSpace.html"); //Use mathjax to typset the Latex in default browser
+ </pre>
+ <p>
+   And the output is displayed below:
+ </p>
+ <p id='pLatex4'  class="dummy" style='height: 150px; width: 300px;display:none'>
+   \begin{equation}
+   e_{1} = \begin{bmatrix}1\\0\\0\end{bmatrix}  e_{2} = \begin{bmatrix}0\\1\\0\end{bmatrix}  e_{3} = \begin{bmatrix}0\\0\\1\end{bmatrix} 
+   \end{equation}
+ </p>
+ <p>
+   The definition of <b>One Vector</b> of order n is
+ </p>
+ <p id='pLatex5'  class="dummy" style='height: 150px; width: 300px;display:none'>
+   \begin{equation}
+   \mathbf{e} = \displaystyle\sum_{i=1}^{n}{e_i} = 
+     \begin{bmatrix}
+     1 \\ 
+     1 \\ 
+     1 \\
+     \vdots \\
+     1
+     \end{bmatrix}
+   \end{equation}
+ </p>
+ <p>
+   The UnitVectorSpace class implements a OneVector method 
+   We can then output Latex using the ToLatex method as show below for order 3. Notice we are using the ToLatex("F") to get the full representation.
+ </p>
+ <h5 id="bmUnitVectorSpaceOneVector">Output of UnitVectorSpace OneVector</h5>
+ <pre>
+   UnitVectorSpace uvs = new UnitVectorSpace(3); //Create a vector space of order 3
+   HtmlOutputMethods.WriteLatexEqToHtmlAndLaunch(uvs.OneVector().ToLatex("F"), "Test_OneVector_OneVector.html"); //display full representation
+ </pre>
+ <p>
+   And the output is displayed below:
+ </p>
+ <p id='pLatex4'  class="dummy" style='height: 150px; width: 300px;display:none'>
+   \begin{equation}
+   \displaystyle\sum_{i=1}^{3}{e_i} = \begin{bmatrix}1\\1\\1\end{bmatrix}
+   \end{equation}
+ </p>
+ 
+</main>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./Dashboard_files/jquery-3.3.1.slim.min.js.download" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="./Dashboard_files/popper.min.js.download"></script>
+    <script src="./Dashboard_files/bootstrap.min.js.download"></script>
+
+    <!-- Icons -->
+    <script src="./Dashboard_files/feather.min.js.download"></script>
+    <script>
+      feather.replace()
+    </script>
+
+    <!-- Graphs -->
+    <script src="./Dashboard_files/Chart.min.js.download"></script>
+    <script>
+      var ctx = document.getElementById("myChart");
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          datasets: [{
+            data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
+            lineTension: 0,
+            backgroundColor: 'transparent',
+            borderColor: '#007bff',
+            borderWidth: 4,
+            pointBackgroundColor: '#007bff'
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: false
+              }
+            }]
+          },
+          legend: {
+            display: false,
+          }
+        }
+      });
+    </script>
+  
+
+</body></html>
