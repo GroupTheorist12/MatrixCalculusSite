@@ -193,24 +193,94 @@ MathJax.Hub.Register.StartupHook('End', function()
         </div>
         <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2">Home</h1>
+          <h1 class="h2">Matrix Decomposition</h1>
         </div>
-
+        <h5 id="bmColumnAccessorMatrix">Column Accessor of Matrix</h5>
         <p>
-          The code developed on this website will be used to illustrate the Kronecker product and matrix
-          differentiation.
+          For the matrix A order n X n
         </p>
-        <p>
-          The code is developed using .Net Core and Visual Studio Code. The links below list the code repository on
-          github and links to .Net Core and VS Code.
-        </p>
-        <p>
-          It is assumed the user nows how to clone a repository from github and run code in VS Code.
-        </p>
-        <a href="https://github.com/GroupTheorist12/MatrixCalculus">Matrix Calculus Code</a><br />
-        <a href="https://dotnet.microsoft.com/download/dotnet-core/thank-you/sdk-3.1.101-windows-x64-installer"> .Net
-          Core 3.1</a><br />
-        <a href="https://code.visualstudio.com/"> Visual Studio Code</a>
+        <p  id='pLatex' class="dummy" style='height: 90px; width: 300px;display:none'>
+          \begin{equation}      
+          A  = \begin{bmatrix}a_{11} &a_{12} &a_{13} &a_{14}\\a_{21} &a_{22} &a_{23} &a_{24}\\ \vdots &\; &\; &\;\\a_{n1} &a_{n2} &a_{n3} &a_{n4}\\ \end{bmatrix}
+          \end{equation}      
+       </p>
+       <p>
+         We denote the column accessor for n columns as 
+       </p>
+      <p id='pLatex3' class="dummy" style='height: 120px; width: 300px;display:none'>
+        \begin{equation}      
+               \begin{aligned}&A_{.1},\;A_{.2}\;\dots\;A_{.n} \\ &A_{.j}\;=\;\begin{bmatrix}a_{1j}\\a_{2j}\\\vdots\\a_{nj}\\\end{bmatrix}\end{aligned}
+        \end{equation}      
+              </p>
+       
+              <h5 id="bmColumnAccessorCode">Example C# code of column Accessor</h5>
+              <p>
+                We show an example of a column accessor using a C# indexer
+              </p>
+              <pre>
+                <code>
+                    List<double> initer = new List&lt;double&gt;{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}; //init matrix vector
+                    SquareRealMatrix A = new SquareRealMatrix(4, 4, initer); //create 4X4 matrix
+                    A.Name = "A"; //give it a name
+                    RealVector rv = A[".2"]; //use accessor to get column 2 of matrix
+                    string outR = @"\begin{aligned}&A  = " + A.ToLatex() + @" \\ \\" + "&" + rv.ToLatex("F") + @"\end{aligned}";  //use column accessor A.2 which returns column 2.          
+                    HtmlOutputMethods.WriteLatexEqToHtmlAndLaunch(outR, "TestColumns_Of_Matrix.html"); //display Latex via mathjax
+                    return 0;
+        
+                </code>
+       </pre>
+       <p>
+         Which displays the following output
+       </p>
+       <p id='pLatex4' class="dummy" style='height: 300px; width: 300px;display:none'>
+        \begin{equation}      
+        \begin{aligned}&A  = \begin{bmatrix}1 &2 &3 &4\\5 &6 &7 &8\\9 &10 &11 &12\\13 &14 &15 &16\\ \end{bmatrix} \\ \\&A_.2\;=\;\begin{bmatrix}2\\6\\10\\14\\\end{bmatrix}\end{aligned}
+ \end{equation}      
+       
+      </p>                    
+      <h5 id="bmRowAccessorMatrix">Row Accessor of Matrix</h5>
+      <p>
+        For the matrix A order n X n
+      </p>
+      <p  id='pLatex5' class="dummy" style='height: 90px; width: 300px;display:none'>
+        \begin{equation}      
+        A  = \begin{bmatrix}a_{11} &a_{12} &a_{13} &a_{14}\\a_{21} &a_{22} &a_{23} &a_{24}\\ \vdots &\; &\; &\;\\a_{n1} &a_{n2} &a_{n3} &a_{n4}\\ \end{bmatrix}
+        \end{equation}      
+     </p>
+     <p>
+       We denote the row accessor for n rows as 
+     </p>
+    <p id='pLatex6' class="dummy" style='height: 140px; width: 300px;display:none'>
+      \begin{equation}      
+             \begin{aligned}&A_{1.},\;A_{2.}\;\dots\;A_{n.} \\\\ &A_{j.}\;=\;\begin{bmatrix}a_{j1}\\a_{j2}\\\vdots\\a_{jn}\\\end{bmatrix}\end{aligned}
+      \end{equation}      
+            </p>
+     
+            <h5 id="bmRowAccessorCode">Example C# code of row Accessor</h5>
+            <p>
+              We show an example of a row accessor using a C# indexer
+            </p>
+            <pre>
+              <code>
+                  List<double> initer = new List&lt;double&gt;{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}; //init matrix vector
+                  SquareRealMatrix A = new SquareRealMatrix(4, 4, initer); //create 4X4 matrix
+                  SquareRealMatrix A = new SquareRealMatrix(4, 4, initer);//create 4X4 matrix
+                  A.Name = "A";//give it a name
+                  RealVector rvRow = A["2."]; //use accessor to get row 2 of matrix
+                  string outR = @"\begin{aligned}&A  = " + A.ToLatex() + @" \\ \\" + "&" + rvRow.ToLatex("F") + @"\end{aligned}";  //use row accessor A2. which returns row 2.          
+                  HtmlOutputMethods.WriteLatexEqToHtmlAndLaunch(outR, "TestRows_Of_Matrix.html"); //display Latex via mathjax
+                  return 0;
+              </code>
+     </pre>
+     <p>
+       Which displays the following output
+     </p>
+     <p id='pLatex7' class="dummy" style='height: 300px; width: 300px;display:none'>
+      \begin{equation}      
+      \begin{aligned}&A  = \begin{bmatrix}1 &2 &3 &4\\5 &6 &7 &8\\9 &10 &11 &12\\13 &14 &15 &16\\ \end{bmatrix} \\ \\&A_2.\;=\;\begin{bmatrix}5\\6\\7\\8\\\end{bmatrix}\end{aligned}
+\end{equation}      
+    
+    </p>                    
 
       </main>
     </div>
