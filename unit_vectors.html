@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="icon" href="https://getbootstrap.com/docs/4.1/assets/img/favicons/favicon.ico">
+  <link rel="icon" href="table.svg">
 
   <title>Unit Vectors</title>
 
@@ -194,6 +194,7 @@ MathJax.Hub.Register.StartupHook('End', function()
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Unit Vectors</h1>
         </div>
+        <h5 id="bmUnitVectors">Unit Vector Definition</h5>
         <p>
           The definition of <b>Unit vectors</b> of order n are
         </p>
@@ -333,7 +334,7 @@ MathJax.Hub.Register.StartupHook('End', function()
           By passing a name for the unit vector in the constructor the proper unit vector is created.
           We can then output Latex using the ToLatex method as show below.
         </p>
-        <h5 id="bmUnitVectorToLatex">Output of UnitVector.ToLatex</h5>
+        <h5 id="bmUnitVectorToLatex">Output of UnitVector ToLatex</h5>
         <pre>
            UnitVector uv = new UnitVector("e1", 3); //Order three e1 unit vector
            HtmlOutputMethods.WriteLatexToHtmlAndLaunch(uv.ToLatex("F"), "Test_UnitVector_UnitVector.html"); //Use mathjax to typset the Latex in default browser
@@ -346,8 +347,10 @@ MathJax.Hub.Register.StartupHook('End', function()
           e_{1} = \begin{bmatrix}1\\0\\0\end{bmatrix}
           \end{equation}
         </p>
+
+        <h5 id="bmUnitVectorSpace">Unit Vector Space</h5>
         <p>
-          All of the unit vectors for Order n form a vector space. The following C# class implments this vector space.
+          All of the unit vectors for Order n form a vector space. The following C# class implements this vector space.
           It inherits from List&lt;UnitVector&gt;.
         </p>
         <h5 id="bmUnitVectorSpaceClass">UnitVectorSpace C# Class</h5>
@@ -414,6 +417,7 @@ MathJax.Hub.Register.StartupHook('End', function()
           \begin{bmatrix}0\\0\\1\end{bmatrix}
           \end{equation}
         </p>
+        <h5 id="bmOneVector">One Vector</h5>
         <p>
           The definition of <b>One Vector</b> of order n is
         </p>
