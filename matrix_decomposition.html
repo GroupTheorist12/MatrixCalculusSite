@@ -281,7 +281,7 @@ MathJax.Hub.Register.StartupHook('End', function()
 \end{equation}      
     
     </p>                    
-    <h5 id="bmPartionedMatrix">Column and Row Accessor Partioned Matrix</h5>
+    <h5 id="bmPartionedMatrix">Column and Row Accessor Partitioned Matrix</h5>
 <p>
   Matrix A can be written as column or row accessor partioned matrix as below
 </p>
@@ -294,23 +294,23 @@ MathJax.Hub.Register.StartupHook('End', function()
   \end{aligned}
 \end{equation}      
 </p>                    
-<h5 id="bmPartionedMatricesCode">Example C# code for Column and Row Accessor Partioned Matrices</h5>
+<h5 id="bmPartitionedMatricesCode">Example C# code for Column and Row Accessor Partitioned Matrices</h5>
 <p>
-  The following code creates both column and row partioned matrices. The transpose of of the row partioned matrix is then taken.
+  The following code creates both column and row partitioned matrices. The transpose of of the row partitioned matrix is then taken.
 </p>
 <pre>
   <code>
       List<double> initer = new List&lt;double&gt;{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}; //init matrix vector
       SquareRealMatrix A = new SquareRealMatrix(4, 4, initer);//create 4X4 matrix
       A.Name = "A";//give it a name
-      SquareRealMatrix AColumns = new SquareRealMatrix(new List<RealVector>{A[".1"], A[".2"], A[".3"], A[".4"]}); //Create partioned matrix from columns
-      SquareRealMatrix ARows = new SquareRealMatrix(new List<RealVector>{A["1."], A["2."], A["3."], A["4."]}); //Create partioned matrix from rows
+      SquareRealMatrix AColumns = new SquareRealMatrix(new List<RealVector>{A[".1"], A[".2"], A[".3"], A[".4"]}); //Create partitioned matrix from columns
+      SquareRealMatrix ARows = new SquareRealMatrix(new List<RealVector>{A["1."], A["2."], A["3."], A["4."]}); //Create partitioned matrix from rows
       
       StringBuilder sb = new StringBuilder();//Start building latex
       sb.Append(@"\begin{aligned}");
       sb.AppendFormat(@"&A = &{0} \\ \\", A.ToLatex()); //Display Original A matrix
-      sb.Append(@"&A = \left[ A_{.1}\;A_{.2}\;A_{.3}\;A_{.4} \right] = \;\;"  + "&" + AColumns.ToLatex() + @" \\ \\");//partioned matrix via columns of A
-      sb.Append(@"&\left[ A_{1.}\;A_{2.}\;A_{3.}\;A_{4.} \right] = \;\;"  + "&" + ARows.ToLatex() + @" \\ \\");//partioned matrix via rows of A
+      sb.Append(@"&A = \left[ A_{.1}\;A_{.2}\;A_{.3}\;A_{.4} \right] = \;\;"  + "&" + AColumns.ToLatex() + @" \\ \\");//partitioned matrix via columns of A
+      sb.Append(@"&\left[ A_{1.}\;A_{2.}\;A_{3.}\;A_{4.} \right] = \;\;"  + "&" + ARows.ToLatex() + @" \\ \\");//partitioned matrix via rows of A
       sb.Append(@"&A = \left[ A_{1.}\;A_{2.}\;A_{3.}\;A_{4.} \right]' = \;\;"  + "&" + ARows.Transpose().ToLatex() + @" \\ \\"); //transpose to get A
       sb.Append(@"\end{aligned}");
       HtmlOutputMethods.WriteLatexEqToHtmlAndLaunch(sb.ToString(), "Test_Partioned_Matrix.html"); //display Latex via mathjax
@@ -320,11 +320,51 @@ MathJax.Hub.Register.StartupHook('End', function()
 <p>
   Which displays the following output
 </p>
-<p id='pLatex9' class='dummy' style='height: 300px; width: 300px;display:none'>
+<p id='pLatex9' class='dummy' style='height: 450px; width: 300px;display:none'>
   \begin{equation}      
          \begin{aligned}&A = &\begin{bmatrix}1 &2 &3 &4\\5 &6 &7 &8\\9 &10 &11 &12\\13 &14 &15 &16\\ \end{bmatrix} \\ \\&A = \left[ A_{.1}\;A_{.2}\;A_{.3}\;A_{.4} \right] = \;\;&\begin{bmatrix}1 &2 &3 &4\\5 &6 &7 &8\\9 &10 &11 &12\\13 &14 &15 &16\\ \end{bmatrix} \\ \\&\left[ A_{1.}\;A_{2.}\;A_{3.}\;A_{4.} \right] = \;\;&\begin{bmatrix}1 &5 &9 &13\\2 &6 &10 &14\\3 &7 &11 &15\\4 &8 &12 &16\\ \end{bmatrix} \\ \\&A = \left[ A_{1.}\;A_{2.}\;A_{3.}\;A_{4.} \right]' = \;\;&\begin{bmatrix}1 &2 &3 &4\\5 &6 &7 &8\\9 &10 &11 &12\\13 &14 &15 &16\\ \end{bmatrix} \\ \\\end{aligned}
   \end{equation}      
  </p> 
+ <h5 id="bmUnitVectorAndAccessorOperations">Unit Vector and Row/Column Accessor operations</h5>
+ <p>
+   Columns and rows of matrices can be expressed using unit vectors as follows
+ </p>
+ <table class="table table-borderless dummy" style="width:300px; border-top:none;">
+   <tr>
+     <td style="vertical-align:middle">
+       jth Column
+     </td>
+     <td>
+      $$A_{.j} = Ae_j$$
+     </td>
+   </tr>
+   <tr>
+    <td style="vertical-align:middle">
+      ith Row
+    </td>
+    <td>
+      $$A_{i.}' = e'_iA$$
+    </td>
+   </tr>
+    <tr>
+    <td>
+      $$A_{i.} = (e'_iA)'$$  
+    </td>
+    <td>
+     $$ = A'e_i$$  
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:middle">
+      (i,j)th element of A
+    </td>
+    <td>
+      $$a_{ij} = e'_jA'e_i$$
+    </td>
+  </tr>
+  
+</table>
+
   </main>
     </div>
   </div>
