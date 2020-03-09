@@ -329,7 +329,7 @@ MathJax.Hub.Register.StartupHook('End', function()
  <p>
    Columns and rows of matrices can be expressed using unit vectors as follows
  </p>
- <table class="table dummy" style="width:300px; border-top:none;">
+ <table class="table table-borderless dummy" style="width:300px; border-top:none;">
    <tr>
      <td style="vertical-align:middle">
        jth Column
@@ -345,12 +345,24 @@ MathJax.Hub.Register.StartupHook('End', function()
     <td>
       $$A_{i.}' = e'_iA$$
     </td>
+   </tr>
     <tr>
-    <td colspan="2">
-    $$A_{i.} = (e'_iA)' = A'e_i$$  
+    <td>
+      $$A_{i.} = (e'_iA)'$$  
+    </td>
+    <td>
+     $$ = A'e_i$$  
     </td>
   </tr>
+  <tr>
+    <td style="vertical-align:middle">
+      (i,j)th element of A
+    </td>
+    <td>
+      $$a_{ij} = e'_jA'e_i$$
+    </td>
   </tr>
+  
 </table>
 
   </main>
