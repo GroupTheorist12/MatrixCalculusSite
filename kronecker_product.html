@@ -119,7 +119,7 @@ MathJax.Hub.Register.StartupHook('End', function()
         <div class="sidebar-sticky">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link active" href="index.html">
+              <a class="nav-link" href="index.html">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                   class="feather feather-home">
@@ -174,7 +174,7 @@ MathJax.Hub.Register.StartupHook('End', function()
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="kronecker_product.html">
+              <a class="nav-link active" href="kronecker_product.html">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                   class="feather feather-file">
@@ -184,6 +184,7 @@ MathJax.Hub.Register.StartupHook('End', function()
                 Kronecker Product
               </a>
             </li>
+
           </ul>
 
         </div>
@@ -203,24 +204,101 @@ MathJax.Hub.Register.StartupHook('End', function()
         </div>
         <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2">Home</h1>
+          <h1 class="h2">Kronecker Product</h1>
         </div>
+        <h5 id="bmKroneckerProductDefinition">Kronecker Product Definition</h5>
+        <p>
+          The Kronecker Product also known as the tensor product is defined for two matrices A and B as:
+        </p>
+        <p id='pLatex' class="dummy" style='height: 200px; width: 300px;display:none'>
+          \begin{equation}
+          \begin{aligned}
+          &A = \begin{bmatrix}a &b\\c &d\\ \end{bmatrix}\;B = \begin{bmatrix}e &f\\g &h\\ \end{bmatrix} \\ \\
+          &A\;\otimes\;B = \begin{bmatrix}ae &af &be &bf\\ag &ah &bg &bh\\ce &cf &de &df\\cg &ch &dg &dh\\ \end{bmatrix}
+          \end{aligned}
+          \end{equation}
+        </p>
+        <p>
+          The results are general. The example above is for two 2 X 2 matrices. The general case is A of order n X m and B of order r X s.<br/> The kronecker product of A and B produces a matrix of order (nr X ms)
+        </p>
+        <h5 id="bmKroneckerProductC#Imp">C# Implementation of the Kronecker Product</h5>
+<pre>
+  <code>
+    public static SymbolMatrix KroneckerProduct(SymbolMatrix a, SymbolMatrix b)
+    {
+        int Rows = a.Rows * b.Rows; //calculate number of rows.
+        int Columns = a.Columns * b.Rows; // calculate number of columns
+        int incC = 0; //increment variable for column of b matrix
+        int incR = 0; //increment variable for row of b matrix
+        int incAMC = 0;//increment variable for column of a matrix
+        int incAMR = 0;//increment variable for row of a matrix
+        SymbolMatrix ret = new SymbolMatrix(Rows, Columns);
+        int i = 0;
+        int j = 0;
+        string exp = string.Empty;
 
-        <p>
-          The code developed on this website will be used to illustrate the Kronecker product and matrix
-          differentiation.
+        for(i = 0; i &lt; ret.Rows; i++)
+        {
+            if(incR &gt; b.Rows - 1)//reached end of rows of b matrix
+            {
+                incR = 0;
+                incAMR++; 
+            }
+            incAMC = 0;
+            for(j = 0; j &lt; ret.Columns; j++)
+            {
+                exp = a[incAMR, incAMC].Expression + b[incR, incC].Expression;
+                incC++;
+                if(incC &gt; b.Columns - 1)////reached end of columns of b matrix
+                {
+                    incC = 0;
+                    incAMC++;    
+                }
+
+                ret[i, j] = new Symbol(exp);
+            }
+            incR++;
+
+        }
+
+        ret.FullRep = a.ToLatex() + @"\;\otimes\;" + b.ToLatex() + " = " + ret.ToLatex(); //produce latex string
+        return ret;
+    }
+
+  </code>
+</pre>
+<h5 id="bmKroneckerProductC#Example">C# Example usage of the Kronecker Product method</h5>
+<pre>
+  <code>
+    SymbolMatrix A1 = new SymbolMatrix(2, 2, //create a 2 X 2 symbol matrix with symbols a,b,c,d
+    new List&lt;Symbol&gt;
+    {
+        new Symbol("a"), new Symbol("b"), 
+        new Symbol("c"), new Symbol("d")
+    });
+
+    SymbolMatrix A2 = new SymbolMatrix(2, 2, //create a 2 X 2 symbol matrix with symbols e,f,g,h
+    new List&lt;Symbol&gt;
+    {
+        new Symbol("e"), new Symbol("f"), 
+        new Symbol("g"), new Symbol("h")
+    });
+    StringBuilder sb = new StringBuilder();//Start building latex
+    sb.AppendFormat(@"{0}", SymbolMatrixUtilities.KroneckerProduct(A1, A2).ToLatex("F"));
+
+    HtmlOutputMethods.WriteLatexEqToHtmlAndLaunch(sb.ToString(), "Test_KroneckerProduct.html"); //display Latex via mathjax
+
+  </code>
+</pre>
+<p>
+  The code above produces the following output:
+</p>
+<p id='pLatex2' class="dummy" style='height: 300px; width: 300px;display:none'>
+  \begin{equation}      
+         \begin{bmatrix}a &b\\c &d\\ \end{bmatrix}\;\otimes\;\begin{bmatrix}e &f\\g &h\\ \end{bmatrix} = \begin{bmatrix}ae &af &be &bf\\ag &ah &bg &bh\\ce &cf &de &df\\cg &ch &dg &dh\\ \end{bmatrix}
+  \end{equation}      
         </p>
-        <p>
-          The code is developed using .Net Core and Visual Studio Code. The links below list the code repository on
-          github and links to .Net Core and VS Code.
-        </p>
-        <p>
-          It is assumed the user nows how to clone a repository from github and run code in VS Code.
-        </p>
-        <a href="https://github.com/GroupTheorist12/MatrixCalculus">Matrix Calculus Code</a><br />
-        <a href="https://dotnet.microsoft.com/download/dotnet-core/thank-you/sdk-3.1.101-windows-x64-installer"> .Net
-          Core 3.1</a><br />
-        <a href="https://code.visualstudio.com/"> Visual Studio Code</a>
+  
 
       </main>
     </div>
