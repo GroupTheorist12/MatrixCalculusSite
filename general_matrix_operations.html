@@ -10,7 +10,7 @@
   <meta name="author" content="">
   <link rel="icon" href="table.svg">
 
-  <title>Introduction</title>
+  <title>General Matrix Operations</title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/dashboard/">
 
@@ -130,14 +130,14 @@ MathJax.Hub.Register.StartupHook('End', function()
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link  active" href="introduction.html">
+              <a class="nav-link" href="introduction.html">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                   class="feather feather-file">
                   <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
                   <polyline points="13 2 13 9 20 9"></polyline>
                 </svg>
-                Introduction <span class="sr-only">(current)</span>
+                Introduction
               </a>
             </li>
             <li class="nav-item">
@@ -185,18 +185,16 @@ MathJax.Hub.Register.StartupHook('End', function()
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="general_matrix_operations.html">
+              <a class="nav-link active" href="general_matrix_operations.html">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                   class="feather feather-file">
                   <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
                   <polyline points="13 2 13 9 20 9"></polyline>
                 </svg>
-                General Matrix Operations</span>
+                General Matrix Operations <span class="sr-only">(current)</span>
               </a>
             </li>
-
-
           </ul>
 
         </div>
@@ -216,71 +214,150 @@ MathJax.Hub.Register.StartupHook('End', function()
         </div>
         <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2">Introduction</h1>
+          <h1 class="h2">General Matrix Operations</h1>
         </div>
 
+        <h5 id="bmTraceFunctionDefinition">Trace Function Definition</h5>
         <p>
-          We will be using C# to develop vector, matrix and differentiation classes
+          The Trace function is the sum of the diagonal terms of a square matrix A of order (n X n)
+        </p>
+        <p id='pLatex' class="dummy" style='height: 100px; width: 300px;display:none'>
+          \begin{equation}
+          tr A = \displaystyle\sum_{i=1}^{n} a_i
+          \end{equation}
         </p>
 
+        <h5 id="bmTraceFunctionC#Imp">C# Implementation of Trace Function</h5>
         <p>
-          A test bed was created to ionvoke your test methods to display test data content as show below. 
+          The following shows the C# implementation of the Trace function for the <i>SquareRealMatrix</i> class.
         </p>
-        <h5 id="bmTestBed">Test bed code</h5>
         <pre>
           <code>
-            // Arguments are passed to console app in VSCode in the Launch.json file's section, args 
-            //"args": ["Symbols_Tokens"]
-            //Main method in Program.cs spawns web browser
-            MethodRunner.RunIt(args[0]);
+            public double Trace()
+            {
+              double ret = 0;
+              for (int i = 0; i &lt; this.Rows; i++)
+              {
+                ret += this[i, i];
+              }
+              return ret;
+           }
+
           </code>
         </pre>
-
-        <h5 id="bmMethodRunner">MethodRunner class code</h5>
-        <p>
-          The MethodRunner class uses C# refelection to create a hash table of all static methods with names that start with "Test_"
-        </p>
-        <p>
-          The static method RunIt invokes the method
-        </p>
+        <h5 id="bmKTraceFunctionC#Example">C# Example usage of the Trace Function method</h5>
         <pre>
           <code>
-            public static int RunIt(string hashEntry)
-            {
-                MethodInfo mi = (MethodInfo)htTestFuncs[hashEntry];
-                return (int)mi.Invoke(null, null);
-            }
-    
-            static MethodRunner()
-            {
-    
-                // get all public static methods of MethodRunner type
-                MethodInfo[] methodInfos = typeof(MethodRunner).GetMethods(BindingFlags.Public |
-                                                                    BindingFlags.Static);
-                // sort methods by name
-                Array.Sort(methodInfos,
-                        delegate (MethodInfo methodInfo1, MethodInfo methodInfo2)
-                        { return methodInfo1.Name.CompareTo(methodInfo2.Name); });
-    
-                // write method names to hash
-                foreach (MethodInfo methodInfo in methodInfos)
-                {
-                    if (methodInfo.Name.IndexOf("Test_") == -1)
-                    {
-                        continue;
-                    }
-    
-                    string miKey = methodInfo.Name.Replace("Test_", "");
-                    //Console.WriteLine(miKey);
-    
-                    htTestFuncs[miKey] = methodInfo;
-                }
-    
-    
-            }
-              </code>
-        </pre>
+            RealFactory rf = new RealFactory(); //create a real factory
 
+            SquareRealMatrix A = rf[3, 3, //create a 3 X 3 real matrix
+            1, 2, 3,
+            7, 8, 9,
+            6, 5, 4 
+            ];
+
+            StringBuilder sb = new StringBuilder();//Start building latex
+            sb.Append(@"\begin{aligned}");
+            
+            sb.AppendFormat(@"&A = {0}", A.ToLatex() + @" \\ \\");//display A matrix
+            sb.AppendFormat(@"&tr A = {0}", A.Trace() + @" \\ \\"); //display trace
+            sb.Append(@"\end{aligned}");
+
+            HtmlOutputMethods.WriteLatexEqToHtmlAndLaunch(sb.ToString(), "Test_TraceFunction.html"); //display Latex via mathjax
+
+          </code>
+        </pre>
+        <p>
+          Which produces the following output:
+        </p>
+        <p id='pLatex2' class="dummy" style='height: 200px; width: 300px;display:none'>
+          \begin{equation}      
+          \begin{aligned}
+          &A = \begin{bmatrix}1 &2 &3\\7 &8 &9\\6 &5 &4\\ \end{bmatrix} \\ \\
+          &tr A = 13
+          \end{aligned}
+         \end{equation}      
+   
+        </p>
+
+        <h5 id="bmVecOperatorDefinition">Vec Operator Definition</h5>
+        <p>
+          The Vec operator of matrix A of order (n X n) is defined as:
+        </p>
+
+        <p id='pLatex3' class="dummy" style='height: 100px; width: 300px;display:none'>
+          \begin{equation}      
+          \begin{aligned}&Vec A  = \begin{bmatrix}A_{.1}\\A_{.2}\\ \vdots\\A_{.n}\\\end{bmatrix}
+          \end{aligned}
+   \end{equation}      
+  
+   <table class="table table-borderless dummy" style="width:300px; border-top:none;">
+    <tr>
+      <td style="vertical-align:middle">
+        Where we use the column accessor
+      </td>
+      <td>
+        $$ A_{.n}$$      
+      </td>
+    </tr>
+   </table> 
+   <h5 id="bmVecOperatorC#Imp">C# Implementation of Vec Operator</h5>
+   <p>
+     The following shows the C# implementation of the Vec operator method for the <i>SquareRealMatrix</i> class.
+   </p>
+   <pre>
+     <code>
+      public RealVector Vec(string MatrixName = "A")
+      {
+          RealVector ret = new RealVector(); //create return vector
+          string MN = (this.Name == string.Empty || this.Name == null) ? MatrixName : this.Name;
+          for(int i = 0; i &lt; this.Columns; i++)
+          {
+              RealVector rv = this["." + (i + 1).ToString()]; //use column accessor
+              ret.AddRange(rv); //ad to return vector
+          }
+
+          ret.FullRep = @"Vec\;" + MN + " = " + ret.ToLatex();
+          return ret;
+      }
+
+     </code>
+   </pre>
+
+   <h5 id="bmKVecOperatorC#Example">C# Example usage of the Vec Operator method</h5>
+   <pre>
+     <code>
+      RealFactory rf = new RealFactory(); //create a real factory
+
+      SquareRealMatrix A = rf[2, 2, //create a 2 X 2 real matrix
+      1, 2,
+      3, 4 
+      ];
+
+      RealVector VecA = A.Vec("A"); //use Vec operator giving the matrix a name
+      StringBuilder sb = new StringBuilder();//Start building latex
+      sb.Append(@"\begin{aligned}");
+      
+      sb.AppendFormat(@"&A = {0}", A.ToLatex() + @" \\ \\");//display A matrix
+      sb.AppendFormat(@"&{0}", VecA.ToLatex("F")); //display Vec A
+      sb.Append(@"\end{aligned}");
+
+      HtmlOutputMethods.WriteLatexEqToHtmlAndLaunch(sb.ToString(), "Test_VecOperator.html"); //display Latex via mathjax
+
+     </code>
+   </pre>
+   <p>
+     Which produces the following output:
+   </p>
+   <p id='pLatex4' class="dummy" style='height: 200px; width: 300px;display:none'>
+    \begin{equation}      
+      \begin{aligned}
+        &A = \begin{bmatrix}1 &2\\3 &4\\ \end{bmatrix} \\ \\
+        &Vec\;A = \begin{bmatrix}1\\3\\2\\4\\\end{bmatrix}
+      \end{aligned}
+    \end{equation}      
+
+   </p>
 
       </main>
     </div>
