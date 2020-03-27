@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)https://getbootstrap.com/docs/4.1/examples/dashboard/ -->
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="table.svg">
+
+  <title>Kronecker Sum</title>
+
+  <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/dashboard/">
+
+  <!-- Bootstrap core CSS -->
+  <link href="./Dashboard_files/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="./Dashboard_files/dashboard.css" rel="stylesheet">
+  <style type="text/css">
+    /* Chart.js */
+
+    @-webkit-keyframes chartjs-render-animation {
+      from {
+        opacity: 0.99
+      }
+
+      to {
+        opacity: 1
+      }
+    }
+
+    @keyframes chartjs-render-animation {
+      from {
+        opacity: 0.99
+      }
+
+      to {
+        opacity: 1
+      }
+    }
+
+    .chartjs-render-monitor {
+      -webkit-animation: chartjs-render-animation 0.001s;
+      animation: chartjs-render-animation 0.001s;
+    }
+  </style>
+  <script type='text/javascript' async
+    src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML'>
+    </script>
+
+  <script type='text/x-mathjax-config'>
+MathJax.Hub.Register.StartupHook('End', function()
+{
+  $(".dummy").css("display", "block");
+});
+</script>
+  <style>
+    .dummy {}
+
+    code,
+    samp,
+    kbd {
+      font-family: "Courier New", Courier, monospace, sans-serif;
+      text-align: left;
+      color: #555;
+    }
+
+    pre code {
+      line-height: 1.6em;
+      font-size: 11px;
+    }
+
+    pre {
+      padding: 0.1em 0.5em 0.3em 0.7em;
+      border-left: 11px solid #ccc;
+      margin: 1.7em 0 1.7em 0.3em;
+      overflow: auto;
+      width: 93%;
+    }
+
+    /* target IE7 and IE6 */
+    *:first-child+html pre {
+      padding-bottom: 2em;
+      overflow-y: hidden;
+      overflow: visible;
+      overflow-x: auto;
+    }
+
+    * html pre {
+      padding-bottom: 2em;
+      overflow: visible;
+      overflow-x: auto;
+    }
+  </style>
+
+<script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+<!-- Don't use this in production: -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+</head>
+
+<body>
+  <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="https://getbootstrap.com/docs/4.1/examples/dashboard/#">Matrix
+      Calculus</a>
+    <!--
+      <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+      
+       <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="https://getbootstrap.com/docs/4.1/examples/dashboard/#">Sign out</a>
+        </li>
+      </ul>
+ -->
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <nav class="col-md-2 d-none d-md-block bg-light sidebar" id="root">
+      </nav>
+
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <div class="chartjs-size-monitor"
+          style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+          <div class="chartjs-size-monitor-expand"
+            style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+            <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
+          </div>
+          <div class="chartjs-size-monitor-shrink"
+            style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+            <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
+          </div>
+        </div>
+        <div
+          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <h1 class="h2">Kronecker Sum</h1>
+        </div>
+
+        <h5 id="bmKroneckerSumDefinition">Kronecker Sum Definition</h5>
+        <p>
+          The Kronecker Sum is defined for two matrices A (n X n) and B (m X m) as:
+        </p>
+        <p id='pLatex' class="dummy" style='height: 100px; width: 300px;display:none'>
+            \begin{equation}
+            A\;\oplus\;B = A\;\otimes\;I_m + I_n\;\otimes\;B
+            \end{equation}
+          </p>
+          <h5 id="bmKroneckerSumC#Imp">C# Implementation of the Kronecker Sum</h5>
+<pre>
+  <code>
+    public static SquareRealMatrix KroneckerSum(SquareRealMatrix a, SquareRealMatrix b)
+    {
+        SquareRealMatrix retVal = null;
+        SquareRealMatrix id = IdentityMatrix(a.Rows);
+
+        retVal = KroneckerProduct(a, id) + KroneckerProduct(id, b);
+
+        retVal.FullRep = a.ToLatex() + @"\;\oplus\;" + b.ToLatex() + " = " + retVal.ToLatex(); //produce latex string
+
+        return retVal;
+    }
+
+</code>
+</pre>
+<h5 id="bmKroneckerSumC#Example">C# Example usage of the Kronecker Sum method</h5>
+<pre>
+    <code>
+        RealFactory rf = new RealFactory();
+        SquareRealMatrix A = rf[2, 2,
+                1, -1,
+                0, 2
+        ];
+
+        SquareRealMatrix B = rf[2, 2,
+                1, 0,
+                2, -1
+        ];
+
+        StringBuilder sb = new StringBuilder();//Start building latex
+        sb.Append(@"\begin{aligned}");
+
+        sb.AppendFormat(@"&A = {0}\;B = {1}", A.ToLatex(), B.ToLatex() + @" \\ \\");
+        sb.AppendFormat(@"&C = A\;\oplus\;B = {0}", SquareRealMatrix.KroneckerSum(A, B).ToLatex());
+
+        sb.Append(@"\end{aligned}");
+
+        HtmlOutputMethods.WriteLatexEqToHtmlAndLaunch(sb.ToString(), "Test_KroneckerSum.html"); //display Latex via mathjax
+
+    </code>
+</pre>
+
+<p>
+    The code above produces the following output:
+  </p>
+  <p id='pLatex2' class="dummy" style='height: 300px; width: 300px;display:none'>
+    \begin{equation}      
+    \begin{aligned}&A = \begin{bmatrix}1 &-1\\0 &2\\ \end{bmatrix}\;B = \begin{bmatrix}1 &0\\2 &-1\\ \end{bmatrix} \\ \\&C = A\;\oplus\;B = \begin{bmatrix}2 &0 &-1 &0\\2 &0 &0 &-1\\0 &0 &3 &0\\0 &0 &2 &1\\ \end{bmatrix}\end{aligned}
+\end{equation}      
+       </p>
+  
+</main>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript
+    ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="./Dashboard_files/jquery-3.3.1.slim.min.js.download"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+  <script src="./Dashboard_files/popper.min.js.download"></script>
+  <script src="./Dashboard_files/bootstrap.min.js.download"></script>
+
+  <!-- Icons -->
+  <script src="./Dashboard_files/feather.min.js.download"></script>
+  <script>
+    feather.replace()
+  </script>
+  
+<script type="text/babel" src="sidebar.js">
+</script>
+<script>
+var aId = "aKroneckerSum";
+</script>
+</body>
+
+</html>
